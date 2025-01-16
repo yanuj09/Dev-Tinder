@@ -19,4 +19,9 @@
 -Install Postman app and make a workspace/collectio > test API call
 -Write logic to handle GET, POST, PATCH, DELETE API Calls and test them on Postman
 -Explore routing and use of ?, + , (), * in the routes
-
+-Explore routing and use of ?, + , (), * in the routes
+-Use of regex in routes /a/ , /.*fly$/
+-Reading the query params in the routes
+-Reading the dynamic routes
+-Multiple Route Handlers - Play with the code
+-next()
