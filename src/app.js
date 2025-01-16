@@ -9,8 +9,30 @@ const app = express();
 
 
 // this will only handle get request
-app.get("/user/:userId/:name", (req,res)=> {
-    res.send({fName: "Anuj" , lName: "Yadav"})
+app.use("/user", [(req,res, next)=> {
+    console.log("response 1");
+    
+    next();
+    //res.send("1st parameter");
+},(req,res,next)=> {
+    console.log("response 2");
+    //res.send("2nd parameter")
+    next();
+}],(req,res, next)=> {
+    console.log("response 3");
+    
+    next();
+    //res.send("3st parameter");
+},(req,res, next)=> {
+    console.log("response 4");
+    
+    next();
+    //res.send("4st parameter");
+},(req,res, next)=> {
+    console.log("response 5");
+    
+    next();
+    res.send("5st parameter");
 });
 
 
