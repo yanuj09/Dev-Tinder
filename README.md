@@ -26,6 +26,8 @@
 -Multiple Route Handlers - Play with the code
 -next()
 -next function and erros along with res.send();
--What is a middleware
+-What is a middleware? why do we need it?
 -How express JS basically handles request behind the scenes.
 -difference between app.use and app.all
+-write a dummy auth middleware for a admin
+-write a dummy auth middleware for all user routh except /user/login
