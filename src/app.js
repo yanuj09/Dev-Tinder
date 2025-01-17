@@ -6,10 +6,16 @@ const app = express();
 
 // Routing
 
+//=> get/user => middleware chain => req handlers
+app.use("/" , (req,res, next)=>{
+    console.log("routes handler 1")
+    
+    next();
+})
 
 
 // this will only handle get request
-app.use("/user", [(req,res, next)=> {
+app.get("/user", (req,res, next)=> {
     console.log("response 1");
     
     next();
@@ -18,21 +24,11 @@ app.use("/user", [(req,res, next)=> {
     console.log("response 2");
     //res.send("2nd parameter")
     next();
-}],(req,res, next)=> {
+},(req,res, next)=> {
     console.log("response 3");
     
-    next();
-    //res.send("3st parameter");
-},(req,res, next)=> {
-    console.log("response 4");
-    
-    next();
-    //res.send("4st parameter");
-},(req,res, next)=> {
-    console.log("response 5");
-    
-    next();
-    res.send("5st parameter");
+    //next();
+    res.send("3st parameter");
 });
 
 

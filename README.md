@@ -25,3 +25,7 @@
 -Reading the dynamic routes
 -Multiple Route Handlers - Play with the code
 -next()
+-next function and erros along with res.send();
+-What is a middleware
+-How express JS basically handles request behind the scenes.
+-difference between app.use and app.all
