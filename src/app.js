@@ -4,85 +4,37 @@ const express = require("express");
 
 const app = express();
 
-const {adminAuth, userAuth} = require("./middlewares/auth")
 
+//app.use("/Route" , [RH1, RH2, RH3, RH4, RH5]);
 
-/*
-app.use("/admin" , (req,res,next)=>{
-    console.log("admin auth is checked");
-    const token = "xyz";
-    const isAdminAuthorized = token === "xyzs";
-    if(!isAdminAuthorized){
-        res.status(401).send("admin is invalid");
-    }
-    else{
-        next();
-    }
-});
-*/
+app.use("/user", [(req,res,next) =>{
+    console.log("handling the route user!");
+    //res.send("Response1!");
+    next();
+}, (req,res,next) =>{
+    console.log("handling route 2");
+    //res.send("response2!");
+    next();
+}],(req,res,next) =>{
+    console.log("handling route 3");
+    //res.send("response3!");
+    next();
+},(req,res,next) =>{
+    console.log("handling route 4");
+    //res.send("response4!");
+    next();
+},(req,res,next) =>{
+    console.log("handling route 5");
+    //next();
+    res.send("response5!");
+    //next();
+},)
 
-//=> above code can be written in better way
-
-app.use("/admin", adminAuth )
-
-
-app.use("/admin/getAllData", (req, res)=>{
-    // fetching the data
-    //check the admin is authorise
-    res.send("get all data successfully");  
-});
-
-app.post("/user/login" , (req,res)=>{
-    res.send("user loggedin")
-})
-
-//=> this will not check for authorization
-//=> the way of direct authoring the user auth since it only one
-app.use("/user",userAuth, (req,res)=>{
-    res.send("user ")
-});
-
-app.use("/admin/deleteUser", (req,res)=>{
-    // check the admin authoriesd
-    
-    res.send("user Deleted");
-    
-    
-});
-    
-
-/*
-app.use("/admin/getAllData", (req, res,next)=>{
-    // fetching the data
-    //check the admin is authorise
-    const token = "xyz";
-    const isAdminAuthorized = token === "xyzs";
-    if(isAdminAuthorized){
-        res.send("get all data successfully");
-    }
-    else{
-        res.status(401).send("admin is invalid");
-    }
-     
-});
-*/
-
-
-/*
-app.use("/admin/deleteUser", (req,res)=>{
-    // check the admin authoriesd
-    const token = "xyz";
-    const isAdminAuthorized = token === "xyz";
-    if(isAdminAuthorized){
-        res.send("user Deleted");
-    }
-    else{
-        res.status(401).send("invalid admin")
-    }
-    
-});
-*/
-
+// app.use("/getUserData" , (req,res)=>{
+//     //fetching the user data
+//     throw new Error("adfadfasd");
+//     res.send("user Data send");
+// });
 
 
 

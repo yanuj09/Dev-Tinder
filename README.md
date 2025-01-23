@@ -31,3 +31,4 @@
 -difference between app.use and app.all
 -write a dummy auth middleware for a admin
 -write a dummy auth middleware for all user routh except /user/login
+- Error handling useing wild card
