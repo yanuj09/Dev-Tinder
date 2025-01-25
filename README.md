@@ -32,3 +32,13 @@
 -write a dummy auth middleware for a admin
 -write a dummy auth middleware for all user routh except /user/login
 - Error handling useing wild card
+
+
+-create a free cluster on MONGODB officail website(mongo Atlas)
+-Install mongoose library
+-Connect your application to the Database "connection url"/devtinder
+- call the connectDD function and connect to the db before listenging to port 4000
+-Create a user Schema & usermodel
+- create Post /signup api to add data to database
+- Push some documents using APIs call , make api call from post 
+- Error handling using try catch
