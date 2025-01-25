@@ -5,15 +5,25 @@ const connectDB = require("./config/databases");
 const app = express();
 const User = require("./models/user");
 
+// middleware privided by express to convert json req into the object
+app.use(express.json());
+
 app.post("/signUp" , async (req,res) =>{
-    const userObj = {
-        firstName: "Anu",
-        lastName: "malik",
-        email: "anu@malik.com",
-        password: "anu@123",
-        age: "43",
-        gender: "male"
-    };
+
+    console.log(req.body);
+
+    // since how my req.body is same as the userobj
+    // made the adding user info dynamic
+    const userObj = req.body;
+
+    // const userObj = {
+    //     firstName: "Anu",
+    //     lastName: "malik",
+    //     email: "anu@malik.com",
+    //     password: "anu@123",
+    //     age: "43",
+    //     gender: "male"
+    // };
 
     // creatign a new instance of the model
     const user = new User(userObj);
