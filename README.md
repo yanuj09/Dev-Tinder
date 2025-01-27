@@ -62,4 +62,6 @@ API -Feed API - GET/ feed - get all the user from the database
 - create a custom vaidate function for gender
 - improve the db DB schema - put all appropriate in each feild validation 
 - add time stamp to the user schema
+- API level validation on patch reques and signup post api
+- add API validation for each field
 
