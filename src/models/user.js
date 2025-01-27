@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const validator = require("validator");
 
 // way of defineing schema
 const userSchema = new mongoose.Schema({
@@ -22,10 +22,20 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("please enter an valid email")
+            }
+        }
     },
     password: {
         type: String,
         minLength: 8,
+        thisvalidate(value){
+            if(!(validator.isStrongPassword(value,{minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}))){
+                throw new Error("Please Enter a strong password");
+            }
+        }
     },
     age: {
         type: Number,
@@ -42,6 +52,11 @@ const userSchema = new mongoose.Schema({
     photoUrl: {
         type: String,
         default: "https://pngtree.com/freepng/user-vector-avatar_4830521.html",
+        validate(value){
+            if(!validator.isURL(value)){
+                throw new Error("Photo URL not valid" + err.message);
+            }
+        }
     },
     about: {
         type: String,

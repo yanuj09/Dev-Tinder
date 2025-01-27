@@ -121,7 +121,7 @@ app.patch("/user/:userId", async (req,res) => {
     
     try{
         //console.log(userId);
-        const ALLOWED_UPDATES = ["photoUrl" , "firstName" ,"about" , "gender" , "age" , "skills"];
+        const ALLOWED_UPDATES = ["photoUrl" , "firstName", 'lastName' ,"about" , "gender" , "age" , "skills"];
         const isUpdateAllowed = Object.keys(data).every((k) => {
             return ALLOWED_UPDATES.includes(k);
         });

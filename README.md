@@ -64,4 +64,7 @@ API -Feed API - GET/ feed - get all the user from the database
 - add time stamp to the user schema
 - API level validation on patch reques and signup post api
 - add API validation for each field
+- Install validator
+- Explore the validator library and use validator function for password , email, and photoUrl
+- never trust request.body
 
