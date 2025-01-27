@@ -39,11 +39,103 @@ app.post("/signUp" , async (req,res) =>{
         res.status(400).send("Error saving the data:" + err.message);
     }
     
-})
+});
 
 
+// getting only single user
+app.get("/user" , async (req,res) => {
+    const userEmail = req.body.emailId;
 
 
+    try{
+        
+        const user = await User.findOne({email: userEmail});
+        
+        if(!user){
+            res.status(404).send("user not found !")
+        }
+        else{
+            res.send(user);
+        }
+    }
+    catch{
+        res.status(400).send("something went wrong");
+    }
+
+    
+    // res.send(users);
+
+    /*
+    try{
+        const users = await User.find({email:userEmail });
+        
+        // suppose the reqested email not found so in place returning empty string return 404 error
+        if(users.length === 0) {
+            res.status(404).send("user not found !")
+        }
+        else{
+            res.send(users);
+        }
+        
+    }
+    catch{
+        res.status(400).send("something went wrong");
+    }
+        */
+});
+
+// fetch GET/feet get all the user user from the db
+app.get("/feed" , async (req,res)=>{
+
+    try{
+        // passing empty filter to get all the data
+        const users = await User.find({});
+        res.send(users);
+    }
+    catch{
+        res.status(400).send("something went wrong");
+    }
+    
+});
+
+//delete api
+app.delete("/user", async (req,res) =>{
+    const UserId = req.body.userId;
+
+    try{
+        
+        const user = await User.findByIdAndDelete({_id: UserId}); // here i can directly pass the ({UserId});
+        res.send(user);
+    }
+    catch{
+        res.status(400).send("something went wrong");
+    }
+});
+
+
+// update data of the user
+
+app.patch("/user", async (req,res) => {
+    const userId = req.body.userId;
+    const data = req.body;
+    
+    try{
+        
+        const user =  await User.findByIdAndUpdate({_id: userId} , data,
+            {returnDocument : "before", 
+                runValidators: true, 
+            });
+         //await User.findOneAndUpdate({email: UserId} , data); // => updating by email
+        console.log(user);
+        res.send("data updated successfully");
+    }
+    catch(err){
+        res.status(400).send("Update failed:" + err.message);
+    }
+});
+
+
+// connecting DB first then start listening at port 4000
 connectDB().then(
     () => {
         console.log("db connection establised successfully");
