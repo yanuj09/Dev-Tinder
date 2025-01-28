@@ -4,13 +4,24 @@ const express = require("express");
 const connectDB = require("./config/databases");
 const app = express();
 const User = require("./models/user");
+const validateSignUpData = require("./utils/validation");
+const bcrypt = require("bcrypt");
+
 
 // middleware privided by express to convert json req into the object
 app.use(express.json());
 
 app.post("/signUp" , async (req,res) =>{
+    
+    const {firstName, lastName, email, password} = req.body;
+    
+    try{
+    // validating the data
+    validateSignUpData(req);
 
-    console.log(req.body);
+    // encrypting the data
+    const passwordHash = await bcrypt.hash(password, 10);
+    console.log(passwordHash);
 
     // since how my req.body is same as the userobj
     // made the adding user info dynamic
@@ -26,12 +37,17 @@ app.post("/signUp" , async (req,res) =>{
     // };
 
     // creatign a new instance of the model
-    const user = new User(userObj);
+    const user = new User({
+        firstName,
+        lastName,
+        email,
+        password : passwordHash,
+    });
 
 
     // save function to save the info into the db. It return a promise 
     // always wrapp the db operation into the try catch block
-    try{
+    
         await user.save();
         res.send("User signUp Successfully")
     }

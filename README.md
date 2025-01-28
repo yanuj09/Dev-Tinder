@@ -68,3 +68,7 @@ API -Feed API - GET/ feed - get all the user from the database
 - Explore the validator library and use validator function for password , email, and photoUrl
 - never trust request.body
 
+- Validate data in signup Api
+- Install bcrypt package
+- Create PasswordHash using bcrypt.hash and save the encrpted password
+
