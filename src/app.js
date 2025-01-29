@@ -7,9 +7,14 @@ const User = require("./models/user");
 const validateSignUpData = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const {userAuth} = require("./middlewares/auth");
 
 // middleware privided by express to convert json req into the object
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.post("/signUp" , async (req,res) =>{
     
@@ -70,7 +75,7 @@ app.post("/login" , async (req,res) => {
         const user = await User.findOne({email:email});
 
         if(!user){
-            throw new Error("User not found");
+            throw new Error("invalid crediticial");
         }
 
 
@@ -78,15 +83,58 @@ app.post("/login" , async (req,res) => {
         const isValidPassword  = await bcrypt.compare(password, user.password);
 
         if(isValidPassword){
+
+            // jwt token
+
+            const token = jwt.sign({_id: user._id} , "devTinder@124");
+
+            // cookiee
+            res.cookie("token", token);
+
+
             res.send("login successful");
         }
         else{
-            throw new Error("incorrect password");
+            throw new Error("invalid creditial");
         }
     }
     catch(err){
         res.status(400).send("Error in login: " + err.message);
     }
+})
+
+app.post("/profile", async (req,res) => {
+    try{
+        const cookies = req.cookies;
+
+        const {token} = cookies;
+
+        if(!token){
+            throw new Error("token not valid");
+        }
+
+        // validate my token
+        // => doesn't return  boolean, it returns a decoded info
+        const decodedMessage =  jwt.verify(token, "devTinder@124" );
+        const {_id} = decodedMessage;
+
+        const user = await User.findById(_id);
+        
+
+        if(!user){
+            throw new error("user not found");
+        }
+        else{
+            res.send(user);
+        }
+
+        
+    }
+    catch(err){
+        res.status(400).send("Profile not found: " + err.message);
+    }
+
+
 })
 
 // getting only single user

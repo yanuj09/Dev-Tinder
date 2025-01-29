@@ -74,5 +74,10 @@ API -Feed API - GET/ feed - get all the user from the database
 -Create login API
 - Compare passwords and throw erros if email or password is invalid
 
-
+- install cookie-parser
+- just send a dummy cookie to user
+- create a get profile API and check get a cookie back and read the cookie
+- install jsonwebtoken
+- IN login API , after email and password validation create a JWT token
+- read the cookies inside your profile and find out login user
 
