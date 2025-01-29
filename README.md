@@ -71,4 +71,8 @@ API -Feed API - GET/ feed - get all the user from the database
 - Validate data in signup Api
 - Install bcrypt package
 - Create PasswordHash using bcrypt.hash and save the encrpted password
+-Create login API
+- Compare passwords and throw erros if email or password is invalid
+
+
 

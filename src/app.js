@@ -6,7 +6,7 @@ const app = express();
 const User = require("./models/user");
 const validateSignUpData = require("./utils/validation");
 const bcrypt = require("bcrypt");
-
+const validator = require("validator");
 
 // middleware privided by express to convert json req into the object
 app.use(express.json());
@@ -57,6 +57,37 @@ app.post("/signUp" , async (req,res) =>{
     
 });
 
+app.post("/login" , async (req,res) => {
+    try{
+        const {email, password} = req.body;
+        
+        // validation email
+        if(!validator.isEmail(email)){
+            throw new Error("Enter a valid Email");
+        }
+
+        // finding out the email presend or not
+        const user = await User.findOne({email:email});
+
+        if(!user){
+            throw new Error("User not found");
+        }
+
+
+        // return a boolean value
+        const isValidPassword  = await bcrypt.compare(password, user.password);
+
+        if(isValidPassword){
+            res.send("login successful");
+        }
+        else{
+            throw new Error("incorrect password");
+        }
+    }
+    catch(err){
+        res.status(400).send("Error in login: " + err.message);
+    }
+})
 
 // getting only single user
 app.get("/user" , async (req,res) => {
