@@ -80,4 +80,10 @@ API -Feed API - GET/ feed - get all the user from the database
 - install jsonwebtoken
 - IN login API , after email and password validation create a JWT token
 - read the cookies inside your profile and find out login user
+-userAuth Middleware
+-Add the userAuth middle in profile api, sendConnection request
+- set the expiry of jwt token and cookies to 7day
+- set the expiry of the cookie
+- create userSchema method to getJWT
+- create userschema method to get compare the passwordINputByUser
 

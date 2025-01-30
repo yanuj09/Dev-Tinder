@@ -80,16 +80,19 @@ app.post("/login" , async (req,res) => {
 
 
         // return a boolean value
-        const isValidPassword  = await bcrypt.compare(password, user.password);
-
+        //const isValidPassword  = await bcrypt.compare(password, user.password);
+        const isValidPassword = await user.validatePassword(password);
+        
         if(isValidPassword){
 
             // jwt token
 
-            const token = jwt.sign({_id: user._id} , "devTinder@124");
+            //const token = jwt.sign({_id: user._id} , "devTinder@124", {expiresIn: "7d"});
+            const token = await user.getJWT();
 
-            // cookiee
-            res.cookie("token", token);
+
+            // cookiee {maxAge: 5000 }
+            res.cookie("token", token, {expires: new Date(Date.now() + 8 * 3600000)} );
 
 
             res.send("login successful");
@@ -103,8 +106,10 @@ app.post("/login" , async (req,res) => {
     }
 })
 
-app.post("/profile", async (req,res) => {
+app.post("/profile",userAuth, async (req,res) => {
     try{
+        const user = req.user;
+        /*
         const cookies = req.cookies;
 
         const {token} = cookies;
@@ -127,6 +132,9 @@ app.post("/profile", async (req,res) => {
         else{
             res.send(user);
         }
+        */
+
+        res.send(user);
 
         
     }
@@ -137,6 +145,25 @@ app.post("/profile", async (req,res) => {
 
 })
 
+app.post("/sendConnectionRequest" , userAuth, async (req,res) => {
+
+    const user = req.user;
+    console.log("sending a connection request");
+    res.send(user.firstName + " have loggedin");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 // getting only single user
 app.get("/user" , async (req,res) => {
     const userEmail = req.body.emailId;
@@ -176,7 +203,7 @@ app.get("/user" , async (req,res) => {
     catch{
         res.status(400).send("something went wrong");
     }
-        */
+    
 });
 
 // fetch GET/feet get all the user user from the db
@@ -241,7 +268,7 @@ app.patch("/user/:userId", async (req,res) => {
         res.status(400).send("Update failed:" + err.message);
     }
 });
-
+*/
 
 // connecting DB first then start listening at port 4000
 connectDB().then(
