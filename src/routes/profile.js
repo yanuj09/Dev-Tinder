@@ -1,15 +1,15 @@
-const {userAuth} = require("../middlewares/authMiddleware");
-
-
+const {
+  userAuth,
+  validateEditProfileData,
+} = require("../middlewares/authMiddleware");
 
 const express = require("express");
 const profileRouter = express.Router();
 
-
-profileRouter.post("/profile",userAuth, async (req,res) => {
-    try{
-        const user = req.user;
-        /*
+profileRouter.post("/profile/view", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+    /*
         const cookies = req.cookies;
 
         const {token} = cookies;
@@ -34,17 +34,37 @@ profileRouter.post("/profile",userAuth, async (req,res) => {
         }
         */
 
-        res.send(user);
-
-        
-    }
-    catch(err){
-        res.status(400).send("Profile not found: " + err.message);
-    }
-
-
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("Profile not found: " + err.message);
+  }
 });
 
+profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
+  try {
+    console.log(req.body);
+    if (!validateEditProfileData(req)) {
+      throw new Error("input data is not allowed");
+    }
+
+    const loggedInUser = req.user;
+
+    Object.keys(req.body).forEach((key) => {
+      loggedInUser[key] = req.body[key];
+    });
+
+    await loggedInUser.save();
+
+    //=> another way to send respond in the form of json
+    res.json({
+      message: `${loggedInUser.firstName}, your profile updated successfully!`,
+      data: loggedInUser,
+    });
+
+
+  } catch (err) {
+    res.status(400).send("invalid creditential" + err.message);
+  }
+});
 
 module.exports = profileRouter;
-

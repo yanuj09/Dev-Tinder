@@ -94,3 +94,7 @@ API -Feed API - GET/ feed - get all the user from the database
 - Create routes folder for managing auth, profile , request Routers
 - Create authRouther, profileRouther, requestRouter
 - Import these router in app.js
+- Create POST/logout API
+- Create PATCH/profile/edit
+- Create PATCH/profile/password Api => forget password
+- Make you validate all data in every POST PATCH request
