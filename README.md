@@ -87,3 +87,10 @@ API -Feed API - GET/ feed - get all the user from the database
 - create userSchema method to getJWT
 - create userschema method to get compare the passwordINputByUser
 
+-Explore tinder APIs
+-Explore Data insides it
+- Groups multiple routes into their respective routes
+- Read documentation for express.Router 
+- Create routes folder for managing auth, profile , request Routers
+- Create authRouther, profileRouther, requestRouter
+- Import these router in app.js
