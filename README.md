@@ -112,3 +112,7 @@ API -Feed API - GET/ feed - get all the user from the database
 - ALWAYS THINKS AVOUT CORNER CASES
 
 - write code with proper validation for this APIs -POST/request/review/:status/:userId
+- Though process POST vs GET
+- Read about ref and populate 
+- Create GET/user/requests/received
+- Create GET/user/connections
