@@ -13,8 +13,13 @@
 
 
 ## connectionRequest routher
+-POST/request/send/:status/:userId
+
 -POST/ request/send/interested/:userId
 -POST/request/send/ignored/:userId
+
+-POST/request/review/:status/:userId
+
 -POST/request/review/accepted/:requesteId
 -POST/request/review/rejected/:requesteId
 

@@ -110,3 +110,5 @@ API -Feed API - GET/ feed - get all the user from the database
 - What is an advantage and disadvantages of creating index.
 - Read this articles about compound index on mongodb  documention  https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
 - ALWAYS THINKS AVOUT CORNER CASES
+
+- write code with proper validation for this APIs -POST/request/review/:status/:userId
