@@ -26,8 +26,9 @@ const userAuth = async (req,res,next) =>{
             throw new Error("user not find");
         }
         
+       
         req.user = user;
-
+        
         next();
         
     }

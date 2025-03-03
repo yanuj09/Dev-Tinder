@@ -98,3 +98,15 @@ API -Feed API - GET/ feed - get all the user from the database
 - Create PATCH/profile/edit
 - Create PATCH/profile/password Api => forget password
 - Make you validate all data in every POST PATCH request
+
+- Create connection request schema 
+- Send connection request API
+- Proper validation of Data
+- Think about all corner cases and handle that
+- $or query and $and query
+- Schema.pre("sava") function 
+- Read more about indexes in mongodb
+- Why do we need index in DB?
+- What is an advantage and disadvantages of creating index.
+- Read this articles about compound index on mongodb  documention  https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
+- ALWAYS THINKS AVOUT CORNER CASES

@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
         required : true,
         minLength: 4,
         maxLength: 50,
+        index : true,
 
     },
     lastName: {
@@ -23,7 +24,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         lowercase: true,
         required: true,
-        unique: true,
+        unique: true, // unique this automatically marks emails as index
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -46,6 +47,13 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
+
+        // enum: {
+        //     value: ["male", "female", "other"],
+        //     message: `{value} is not valid`
+        // },
+
+        // custom validation
         validate(value){
             if(!["male", "female", "other"].includes(value)){
                 throw new Error("gender data is not valid")
@@ -96,6 +104,6 @@ userSchema.methods.validatePassword = async function(passwordInputByUser){
 
 // model is used to make the use of schema
 // creating model first parameter as name of the model and second parameter schema
-const UserModel = mongoose.model("User" , userSchema);
+const UserModel =  mongoose.model("User" , userSchema);
 
 module.exports = UserModel;
