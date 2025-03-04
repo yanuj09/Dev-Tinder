@@ -116,3 +116,7 @@ API -Feed API - GET/ feed - get all the user from the database
 - Read about ref and populate 
 - Create GET/user/requests/received
 - Create GET/user/connections
+
+
+- Logic for GET/feed API
+- Explore the $nin, $and , $ne and others methods
