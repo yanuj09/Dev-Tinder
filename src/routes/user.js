@@ -63,12 +63,17 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     // 3. ignore profiles
     // 4. pending requests
 
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50 ? 50 : limit ;
+
+    const skip = (page - 1)* limit;
+
     const loggedInUser = req.user;
 
     const connectionRequest = await ConnectionRequestModel.find({
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
-    })
-      .select("fromUserId toUserId");
+    }).select("fromUserId toUserId");
 
     const hiddenUsersFromFeed = new Set();
     connectionRequest.forEach((request) => {
@@ -81,8 +86,11 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         { _id: { $nin: Array.from(hiddenUsersFromFeed) } },
         { _id: { $ne: loggedInUser._id } },
       ],
-    }).select(USER_SAFE_DATA);
-    
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
+
     res.send(users);
   } catch (err) {
     res.status(400).send("ERROR " + err.message);
